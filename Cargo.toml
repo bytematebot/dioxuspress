@@ -1,0 +1,50 @@
+[package]
+name = "dioxuspress"
+description = "A Dioxus-native documentation framework"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT"
+repository = "https://github.com/bytematebot/dioxuspress"
+homepage = "https://github.com/bytematebot/dioxuspress"
+readme = "README.md"
+keywords = ["dioxus", "documentation", "markdown", "static-site", "docs"]
+categories = ["command-line-utilities", "web-programming", "development-tools"]
+
+[[bin]]
+# The package is `dioxuspress`; the command you type is `dxpress`.
+name = "dxpress"
+path = "src/main.rs"
+required-features = ["cli"]
+
+[features]
+# Installing the CLI is the common case, so it is what a bare dependency gets.
+default = ["cli"]
+# Markdown parsing, highlighting, and the site tree.
+core = [
+    "dep:pulldown-cmark",
+    "dep:syntect",
+    "dep:serde",
+    "dep:serde_yaml_ng",
+    "dep:anyhow",
+    "dep:walkdir",
+    "dep:toml",
+]
+# Lowering the document tree into `rsx!`.
+build = ["core", "dep:proc-macro2", "dep:quote", "dep:syn", "dep:prettyplease"]
+cli = ["build", "dep:clap", "dep:notify"]
+
+[dependencies]
+pulldown-cmark = { version = "0.13", default-features = false, features = ["html"], optional = true }
+syntect = { version = "5", default-features = false, features = ["default-fancy"], optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
+serde_yaml_ng = { version = "0.10", optional = true }
+anyhow = { version = "1", optional = true }
+walkdir = { version = "2", optional = true }
+toml = { version = "0.9", optional = true }
+proc-macro2 = { version = "1", optional = true }
+quote = { version = "1", optional = true }
+syn = { version = "2", features = ["full", "parsing", "printing"], optional = true }
+prettyplease = { version = "0.2", optional = true }
+clap = { version = "4", features = ["derive"], optional = true }
+notify = { version = "8", optional = true }

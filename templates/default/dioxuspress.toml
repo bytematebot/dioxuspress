@@ -1,0 +1,8 @@
+title = "{{name}}"
+description = "Documentation built with DioxusPress"
+docs_dir = "docs"
+
+# Set to "" to serve the docs at the root instead of alongside `src/landing.rs`.
+base_path = "/docs"
+
+# repository = "https://github.com/you/{{name}}"

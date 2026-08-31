@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -D warnings
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --all-targets
+      - run: cargo clippy --no-default-features
+      - run: cargo test
+
+  package:
+    # `include_str!` reaches for the template at compile time, so a file cargo leaves
+    # out of the archive is a crate that does not build from crates.io. Checking the
+    # file list is the only place that failure is visible before publishing.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: The template ships with the CLI crate
+        run: |
+          cargo package --list --allow-dirty > files.txt
+          cat files.txt
+          for path in $(git ls-files templates); do
+            grep -qxF "$path" files.txt || { echo "missing from the package: $path"; exit 1; }
+          done
+
+  scaffold:
+    # The generated theme is not part of any workspace build, so this is the only thing
+    # that type-checks it.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo run --bin dxpress -- new /tmp/demo --local .
+      - run: cargo run --manifest-path $GITHUB_WORKSPACE/Cargo.toml --bin dxpress -- check
+        working-directory: /tmp/demo
+      - run: cargo check --features web
+        working-directory: /tmp/demo
