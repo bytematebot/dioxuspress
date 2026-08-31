@@ -1,10 +1,10 @@
-//! `dioxuspress.toml`, the only configuration file a site needs, and it is optional.
+//! `dioxus-press.toml`, the only configuration file a site needs, and it is optional.
 
 use anyhow::{Context, Result};
 use serde::Deserialize;
 use std::path::{Path, PathBuf};
 
-pub const CONFIG_FILE: &str = "dioxuspress.toml";
+pub const CONFIG_FILE: &str = "dioxus-press.toml";
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(deny_unknown_fields, default)]
@@ -33,7 +33,7 @@ impl Default for Config {
 }
 
 impl Config {
-    /// Loads `dioxuspress.toml` from `root`, falling back to defaults when absent.
+    /// Loads `dioxus-press.toml` from `root`, falling back to defaults when absent.
     pub fn load(root: &Path) -> Result<Self> {
         let path = root.join(CONFIG_FILE);
         if !path.exists() {

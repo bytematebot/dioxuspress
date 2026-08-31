@@ -1,7 +1,7 @@
 //! Progress bars driven by markdown task lists, counted into `PageMeta::tasks`.
 
 use dioxus::prelude::*;
-use dioxuspress::types::{PageMeta, Tasks};
+use dioxus_press::types::{PageMeta, Tasks};
 
 use super::{nav, DocLink};
 
@@ -59,7 +59,7 @@ pub fn ProgressCard(
 
 /// Task totals for one route, or an empty count when the route has no page.
 pub fn page_tasks(pages: &'static [PageMeta], route: &str) -> Tasks {
-    dioxuspress::types::page(pages, route)
+    dioxus_press::types::page(pages, route)
         .map(|page| page.tasks)
         .unwrap_or_default()
 }

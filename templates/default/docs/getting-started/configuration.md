@@ -5,7 +5,7 @@ order: 2
 
 # Configuration
 
-All settings live in `dioxuspress.toml`, and every one of them is optional.
+All settings live in `dioxus-press.toml`, and every one of them is optional.
 
 ```toml
 title = "My Docs"

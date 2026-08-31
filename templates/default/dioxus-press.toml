@@ -1,5 +1,5 @@
 title = "{{name}}"
-description = "Documentation built with DioxusPress"
+description = "Documentation built with Dioxus Press"
 docs_dir = "docs"
 
 # Set to "" to serve the docs at the root instead of alongside `src/landing.rs`.

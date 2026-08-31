@@ -14,6 +14,6 @@ pub mod build;
 
 #[cfg(all(target_arch = "wasm32", feature = "core"))]
 compile_error!(
-    "dioxuspress pulls its parser and highlighter into a wasm build. A site needs only \
+    "dioxus-press pulls its parser and highlighter into a wasm build. A site needs only \
      the shared types: depend on it with `default-features = false`."
 );

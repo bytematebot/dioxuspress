@@ -29,7 +29,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
-      - run: cargo install dioxus-cli dioxuspress
+      - run: cargo install dioxus-cli dioxus-press
       - run: dxpress build
       - uses: actions/upload-pages-artifact@v3
         with:

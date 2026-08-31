@@ -13,7 +13,7 @@ pub use progress::{PageProgress, ProgressCard};
 pub use toggle::{ThemeStyles, ThemeToggle};
 
 use dioxus::prelude::*;
-use dioxuspress::types::{PageMeta, SidebarItem, SiteConfig};
+use dioxus_press::types::{PageMeta, SidebarItem, SiteConfig};
 
 /// `static_head` puts the link in `index.html`, so the CSS lands before any wasm.
 pub const THEME_CSS: Asset = asset!(

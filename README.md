@@ -1,10 +1,11 @@
-# DioxusPress
+# Dioxus Press
 
-A documentation framework for [Dioxus](https://dioxuslabs.com). Markdown is compiled to
-`rsx!` at build time, so every page is an ordinary Dioxus component.
+Write your project's documentation in markdown and get a [Dioxus](https://dioxuslabs.com)
+app out. Markdown is compiled to `rsx!` at build time, so every page is an ordinary
+Dioxus component.
 
 ```sh
-cargo install dioxus-cli dioxuspress
+cargo install dioxus-cli dioxus-press
 dxpress new my-docs
 cd my-docs
 dxpress dev
@@ -14,14 +15,14 @@ dxpress dev
 
 ```markdown
 ---
-title: Signals
-description: Reactive state in Dioxus
+title: Rate limits
+description: How many requests you get, and what happens past that
 ---
 
-# Signals
+# Rate limits
 
 :::tip
-Signals implement `Copy`.
+Limits are per API key, not per IP.
 :::
 
 <Counter initial={5} on_change={move |v| tracing::info!("{v}")} />
@@ -60,7 +61,7 @@ Sidebar, breadcrumbs, prev/next, and the table of contents follow from that stru
 ## Project layout
 
 ```
-dioxuspress.toml     config
+dioxus-press.toml     config
 docs/                your content
 languages/*.toml     optional syntax definitions for highlighting
 src/                 main.rs, components.rs, landing.rs, theme/
@@ -69,7 +70,7 @@ generated/           dxpress writes this
 ```
 
 `dxpress new` writes the whole theme into `src/theme/`, as ordinary Dioxus components.
-Edit or replace any of it. The contract is `dioxuspress::types`: `SidebarItem`,
+Edit or replace any of it. The contract is `dioxus_press::types`: `SidebarItem`,
 `PageMeta`, `TocItem`, `Tasks`, `Token`, `SiteConfig`.
 
 `generated/` is git-ignored and rewritten on every run. It stays in the crate root

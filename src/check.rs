@@ -1,15 +1,15 @@
 //! `dxpress check`: parses the docs and reports problems without a Rust build.
 
 use anyhow::Result;
-use dioxuspress::core::ast::Node;
-use dioxuspress::core::config::Config;
-use dioxuspress::core::site::{self, SidebarNode, Site};
+use dioxus_press::core::ast::Node;
+use dioxus_press::core::config::Config;
+use dioxus_press::core::site::{self, SidebarNode, Site};
 use std::collections::HashSet;
 use std::path::Path;
 
 pub fn run(root: &Path) -> Result<()> {
     let config = Config::load(root)?;
-    let languages = dioxuspress::core::lang::load(root)?;
+    let languages = dioxus_press::core::lang::load(root)?;
     let site = site::load(
         &config.docs_path(root),
         &config.normalized_base(),

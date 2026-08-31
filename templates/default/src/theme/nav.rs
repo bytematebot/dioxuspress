@@ -1,6 +1,6 @@
 //! Navigation chrome: sidebar, TOC, breadcrumbs, prev/next, and search.
 
-use dioxuspress::types::{PageMeta, SidebarItem, TocItem};
+use dioxus_press::types::{PageMeta, SidebarItem, TocItem};
 use dioxus::prelude::*;
 use dioxus_router::navigation::NavigationTarget;
 use dioxus_router::router;

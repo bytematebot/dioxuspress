@@ -1,12 +1,12 @@
 ---
 title: Introduction
-description: A documentation site built with DioxusPress
+description: A documentation site built with Dioxus Press
 order: 0
 ---
 
 # Introduction
 
-Welcome. This site is built with **DioxusPress**. The folder you are editing *is* the
+Welcome. This site is built with **Dioxus Press**. The folder you are editing *is* the
 site. Add a `.md` file and it becomes a route, a sidebar entry, and a search result.
 
 :::tip

@@ -19,7 +19,7 @@ macro_rules! template_files {
 }
 
 const FILES: &[TemplateFile] = template_files![
-    "dioxuspress.toml",
+    "dioxus-press.toml",
     "src/main.rs",
     "src/components.rs",
     "src/landing.rs",
@@ -54,11 +54,11 @@ fn local_checkout() -> Option<std::path::PathBuf> {
     root.join(".git").exists().then(|| root.to_path_buf())
 }
 
-/// How the generated project should depend on the DioxusPress crates.
+/// How the generated project should depend on the Dioxus Press crates.
 pub enum Deps {
     /// Published crates, the normal case.
     Registry,
-    /// Path dependencies into a checkout, for working on DioxusPress itself.
+    /// Path dependencies into a checkout, for working on Dioxus Press itself.
     Local(std::path::PathBuf),
 }
 
@@ -72,7 +72,7 @@ impl Deps {
     }
 
     /// `default-features = false` keeps the CLI's parser and highlighter out of the
-    /// site's build; all it needs is `dioxuspress::types`.
+    /// site's build; all it needs is `dioxus_press::types`.
     fn entry(&self) -> String {
         match self {
             Deps::Registry => format!(
@@ -199,7 +199,7 @@ mod tests {
         assert!(manifest.contains("name = \"demo\""), "{manifest}");
         assert!(
             manifest.contains(&format!(
-                "dioxuspress = {{ version = \"{}\", default-features = false }}",
+                "dioxus-press = {{ version = \"{}\", default-features = false }}",
                 env!("CARGO_PKG_VERSION")
             )),
             "{manifest}"
@@ -231,8 +231,8 @@ mod tests {
             let manifest = std::fs::read_to_string(dir.join("Cargo.toml")).expect("a manifest");
             let line = manifest
                 .lines()
-                .find(|line| line.starts_with("dioxuspress ="))
-                .expect("a dioxuspress dependency");
+                .find(|line| line.starts_with("dioxus-press ="))
+                .expect("a dioxus-press dependency");
             assert!(line.contains("default-features = false"), "{line}");
             std::fs::remove_dir_all(&dir).ok();
         }

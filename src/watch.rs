@@ -11,7 +11,7 @@ const DEBOUNCE: Duration = Duration::from_millis(120);
 
 /// Watches `docs/` and the config file. Dropping the returned watcher stops it.
 pub fn spawn(root: &Path, docs: &Path, config: &Path) -> Result<Box<dyn Watcher + Send>> {
-    let languages = root.join(dioxuspress::core::lang::LANGUAGES_DIR);
+    let languages = root.join(dioxus_press::core::lang::LANGUAGES_DIR);
     let (tx, rx) = mpsc::channel::<()>();
 
     let mut watcher = notify::recommended_watcher(move |event: notify::Result<Event>| {
@@ -47,7 +47,7 @@ pub fn spawn(root: &Path, docs: &Path, config: &Path) -> Result<Box<dyn Watcher 
 
 /// Writes the module and reports what happened.
 fn regenerate(root: &PathBuf) {
-    match dioxuspress::build::generate_to_file(root) {
+    match dioxus_press::build::generate_to_file(root) {
         Ok((_, false)) => {}
         Ok((path, true)) => {
             let shown = path.strip_prefix(root).unwrap_or(&path);

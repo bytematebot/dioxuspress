@@ -1,6 +1,6 @@
 //! Code blocks. Tokens arrive pre-colored from the build, so this only lays them out.
 
-use dioxuspress::types::Token;
+use dioxus_press::types::Token;
 use dioxus::prelude::*;
 
 #[component]

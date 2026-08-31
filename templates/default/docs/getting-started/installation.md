@@ -5,11 +5,11 @@ order: 1
 
 # Installation
 
-DioxusPress builds on the Dioxus CLI. Install both:
+Dioxus Press builds on the Dioxus CLI. Install both:
 
 ```sh
 cargo install dioxus-cli
-cargo install dioxuspress
+cargo install dioxus-press
 ```
 
 Then start the dev server:
@@ -29,4 +29,4 @@ The WebAssembly target is required. Add it once with
 | ------------------- | ---------------------------------------- |
 | `docs/`             | Your markdown. Structure becomes routing. |
 | `src/components.rs` | Components you embed in markdown.         |
-| `dioxuspress.toml`  | Site title, description, docs directory.  |
+| `dioxus-press.toml`  | Site title, description, docs directory.  |

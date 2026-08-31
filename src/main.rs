@@ -1,4 +1,4 @@
-//! The DioxusPress CLI.
+//! The Dioxus Press CLI.
 
 mod check;
 mod dx;
@@ -26,7 +26,7 @@ enum Commands {
     New {
         /// Directory to create. Its final segment becomes the crate name.
         name: PathBuf,
-        /// Depend on a local DioxusPress checkout instead of the published crates.
+        /// Depend on a local Dioxus Press checkout instead of the published crates.
         #[arg(long, value_name = "DIR")]
         local: Option<PathBuf>,
         /// Force dependencies on the published crates.
@@ -77,7 +77,7 @@ fn run() -> Result<()> {
         Commands::Build { ssg, out } => build(&cwd, ssg, &out),
         Commands::Generate => {
             let root = project_root(&cwd)?;
-            let (path, changed) = dioxuspress::build::generate_to_file(&root)?;
+            let (path, changed) = dioxus_press::build::generate_to_file(&root)?;
             let shown = path.strip_prefix(&root).unwrap_or(&path);
             println!(
                 "{} {}",
@@ -115,7 +115,7 @@ fn new(cwd: &Path, name: &Path, local: Option<PathBuf>, registry: bool) -> Resul
 
     std::fs::create_dir_all(&dir).with_context(|| format!("creating {}", dir.display()))?;
     template::scaffold(&dir, &crate_name, &deps)?;
-    dioxuspress::build::generate_to_file(&dir)?;
+    dioxus_press::build::generate_to_file(&dir)?;
 
     println!("created {}", dir.display());
     println!("\nnext:");
@@ -128,12 +128,12 @@ fn dev(cwd: &Path, port: Option<u16>, no_open: bool) -> Result<()> {
     let root = project_root(cwd)?;
     dx::ensure_available()?;
 
-    let config = dioxuspress::core::config::Config::load(&root)?;
-    dioxuspress::build::generate_to_file(&root)?;
+    let config = dioxus_press::core::config::Config::load(&root)?;
+    dioxus_press::build::generate_to_file(&root)?;
     let _watcher = watch::spawn(
         &root,
         &config.docs_path(&root),
-        &root.join(dioxuspress::core::config::CONFIG_FILE),
+        &root.join(dioxus_press::core::config::CONFIG_FILE),
     )?;
 
     let mut args = vec!["serve".to_string(), "--web".to_string()];
@@ -151,7 +151,7 @@ fn dev(cwd: &Path, port: Option<u16>, no_open: bool) -> Result<()> {
 fn build(cwd: &Path, ssg: bool, out: &Path) -> Result<()> {
     let root = project_root(cwd)?;
     dx::ensure_available()?;
-    dioxuspress::build::generate_to_file(&root)?;
+    dioxus_press::build::generate_to_file(&root)?;
 
     let mut args = vec![
         "build".to_string(),
@@ -217,17 +217,17 @@ fn copy_dir(source: &Path, destination: &Path) -> Result<()> {
     Ok(())
 }
 
-/// Walks up from `cwd` looking for a `dioxuspress.toml`.
+/// Walks up from `cwd` looking for a `dioxus-press.toml`.
 fn project_root(cwd: &Path) -> Result<PathBuf> {
     for dir in cwd.ancestors() {
-        if dir.join(dioxuspress::core::config::CONFIG_FILE).exists() {
+        if dir.join(dioxus_press::core::config::CONFIG_FILE).exists() {
             return Ok(dir.to_path_buf());
         }
     }
     anyhow::bail!(
         "no `{}` found in `{}` or any parent directory.\n\
          Run `dxpress new <name>` to create a site.",
-        dioxuspress::core::config::CONFIG_FILE,
+        dioxus_press::core::config::CONFIG_FILE,
         cwd.display()
     )
 }

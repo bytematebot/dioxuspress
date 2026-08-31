@@ -1,18 +1,18 @@
 [package]
-name = "dioxuspress"
+name = "dioxus-press"
 description = "A Dioxus-native documentation framework"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.85"
 license = "MIT"
-repository = "https://github.com/bytematebot/dioxuspress"
-homepage = "https://github.com/bytematebot/dioxuspress"
+repository = "https://github.com/bytematebot/dioxus-press"
+homepage = "https://github.com/bytematebot/dioxus-press"
 readme = "README.md"
 keywords = ["dioxus", "documentation", "markdown", "static-site", "docs"]
 categories = ["command-line-utilities", "web-programming", "development-tools"]
 
 [[bin]]
-# The package is `dioxuspress`; the command you type is `dxpress`.
+# The package is `dioxus-press`; the command you type is `dxpress`.
 name = "dxpress"
 path = "src/main.rs"
 required-features = ["cli"]
