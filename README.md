@@ -52,7 +52,7 @@ Sidebar, breadcrumbs, prev/next, and the table of contents follow from that stru
 | ------------------ | --------------------------------------------------------- |
 | `dxpress new`      | Scaffold a site                                            |
 | `dxpress dev`      | Dev server with hot reloading (wraps `dx serve`)           |
-| `dxpress build`    | Production build into `dist/` (`--ssg` to pre-render)      |
+| `dxpress build`    | Production build into `dist/` (`--ssg` to pre-render, `--base-path` to serve from a subdirectory) |
 | `dxpress generate` | Rewrite `generated/docs.rs` without building               |
 | `dxpress check`    | Parse docs, validate internal links, print the site tree   |
 

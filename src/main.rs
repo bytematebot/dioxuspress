@@ -46,6 +46,9 @@ enum Commands {
         /// Pre-render every route to static HTML. Requires the `server` feature.
         #[arg(long)]
         ssg: bool,
+        /// Serve the site from a subdirectory, e.g. `my-repo` for GitHub Pages.
+        #[arg(long, value_name = "PATH")]
+        base_path: Option<String>,
         /// Where to copy the finished site.
         #[arg(long, default_value = "dist")]
         out: PathBuf,
@@ -74,7 +77,11 @@ fn run() -> Result<()> {
             registry,
         } => new(&cwd, &name, local, registry),
         Commands::Dev { port, no_open } => dev(&cwd, port, no_open),
-        Commands::Build { ssg, out } => build(&cwd, ssg, &out),
+        Commands::Build {
+            ssg,
+            base_path,
+            out,
+        } => build(&cwd, ssg, base_path.as_deref(), &out),
         Commands::Generate => {
             let root = project_root(&cwd)?;
             let (path, changed) = dioxus_press::build::generate_to_file(&root)?;
@@ -148,7 +155,7 @@ fn dev(cwd: &Path, port: Option<u16>, no_open: bool) -> Result<()> {
     dx::run(&root, &args)
 }
 
-fn build(cwd: &Path, ssg: bool, out: &Path) -> Result<()> {
+fn build(cwd: &Path, ssg: bool, base_path: Option<&str>, out: &Path) -> Result<()> {
     let root = project_root(cwd)?;
     dx::ensure_available()?;
     dioxus_press::build::generate_to_file(&root)?;
@@ -161,6 +168,10 @@ fn build(cwd: &Path, ssg: bool, out: &Path) -> Result<()> {
     if ssg {
         args.push("--fullstack".to_string());
         args.push("--ssg".to_string());
+    }
+    if let Some(base_path) = base_path {
+        args.push("--base-path".to_string());
+        args.push(base_path.to_string());
     }
     dx::run(&root, &args)?;
 
