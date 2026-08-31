@@ -4,22 +4,20 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 
-# Keeps the generated site standalone even when created inside another workspace.
 [workspace]
 
 [dependencies]
 dioxus = { version = "0.8.0-alpha.1", features = ["router"] }
 dioxus-router = "0.8.0-alpha.1"
-# Only the shared types; the CLI's parser and highlighter stay out of the build.
 dioxuspress = {{types_dep}}
 
 [features]
 default = ["web"]
 web = ["dioxus/web"]
-server = ["dioxus/server"]
+server = ["dioxus/server", "dioxus/fullstack"]
 
 [profile.release]
 opt-level = "z"
 lto = true
 codegen-units = 1
-strip = true
+strip = "debuginfo"
